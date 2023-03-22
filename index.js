@@ -25,7 +25,7 @@ const transporter = nodemailer.createTransport({
     //     user: 'youremail@gmail.com',
     //     pass: 'xxxxxxxxxx',
     // },
-    secure: true, // upgrades later with STARTTLS -- change this based on the PORT
+    //secure: true, // upgrades later with STARTTLS -- change this based on the PORT
 });
 
 route.post('/text-mail', (req, res) => {
@@ -40,9 +40,9 @@ route.post('/text-mail', (req, res) => {
 
     transporter.sendMail(mailData, (error, info) => {
         if (error) {
-            return console.log(error);
+            return res.status(400).send({ message: "Error", error: error});
         }
-        res.status(200).send({ message: "Mail send", message_id: info.messageId });
+        return res.status(200).send({ message: "Mail send", message_id: info.messageId });
     });
 });
 
