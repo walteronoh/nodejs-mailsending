@@ -17,23 +17,25 @@ app.listen(port, () => {
 
 
 const transporter = nodemailer.createTransport({
-    port: 465,
-    host: "smtp.gmail.com",
-    auth: {
-        user: 'youremail@gmail.com',
-        pass: 'xxxxxxxxxx',
-    },
+    port: 8025,
+    host: "mail.smtpbucket.com",
+    // port: 465,
+    // host: "smtp.gmail.com",
+    // auth: {
+    //     user: 'youremail@gmail.com',
+    //     pass: 'xxxxxxxxxx',
+    // },
     secure: true, // upgrades later with STARTTLS -- change this based on the PORT
 });
 
 route.post('/text-mail', (req, res) => {
-    const {to, subject, text } = req.body;
+    const {to, subject, text, from } = req.body;
     const mailData = {
-        from: 'youremail@gmail.com',
+        from: from,
         to: to,
         subject: subject,
         text: text,
-        html: '<b>Hey there! </b><br> This is our first message sent with Nodemailer<br/>',
+       // html: '<b>Hey there! </b><br> This is our first message sent with Nodemailer<br/>',
     };
 
     transporter.sendMail(mailData, (error, info) => {
